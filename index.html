@@ -1,7 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Harsh Sharma | Contact</title>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
         * {
@@ -31,23 +35,33 @@
 
         h2 {
             text-align: center;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
+            margin-bottom: 5px;
         }
 
-        label {
-            font-size: 14px;
-            margin-top: 10px;
-            display: block;
+        .tech-tag {
+            text-align: center;
+            font-size: 13px;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .input-group i {
+            position: absolute;
+            top: 12px;
+            left: 10px;
+            color: #ddd;
         }
 
         input {
             width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            margin-bottom: 15px;
-            border: none;
+            padding: 10px 10px 10px 35px;
             border-radius: 8px;
+            border: none;
             outline: none;
             background: rgba(255,255,255,0.2);
             color: white;
@@ -59,7 +73,6 @@
 
         input:focus {
             border: 1px solid #00f2fe;
-            background: rgba(255,255,255,0.3);
         }
 
         button {
@@ -84,13 +97,6 @@
             margin-top: 10px;
             font-weight: bold;
         }
-
-        .tech-tag {
-            text-align: center;
-            font-size: 12px;
-            margin-bottom: 15px;
-            color: #ddd;
-        }
     </style>
 </head>
 
@@ -98,19 +104,33 @@
 
 <div class="container">
     <h2>Harsh Sharma</h2>
-    <div class="tech-tag">DevOps | Cloud | AWS</div>
+    <div class="tech-tag">
+        <i class="fa-brands fa-jenkins"></i> DevOps | 
+        <i class="fa-solid fa-cloud"></i> Cloud | 
+        <i class="fa-brands fa-aws"></i> AWS
+    </div>
 
     <form id="contactForm">
-        <label>👤 Name</label>
-        <input type="text" id="name" placeholder="Enter your name" required>
 
-        <label>📧 Email</label>
-        <input type="email" id="email" placeholder="Enter your email" required>
+        <div class="input-group">
+            <i class="fa-solid fa-user"></i>
+            <input type="text" id="name" placeholder="Enter your name" required>
+        </div>
 
-        <label>📱 Contact</label>
-        <input type="text" id="contact" placeholder="Enter your contact" required>
+        <div class="input-group">
+            <i class="fa-solid fa-envelope"></i>
+            <input type="email" id="email" placeholder="Enter your email" required>
+        </div>
 
-        <button type="submit">🚀 Submit</button>
+        <div class="input-group">
+            <i class="fa-solid fa-phone"></i>
+            <input type="text" id="contact" placeholder="Enter your contact" required>
+        </div>
+
+        <button type="submit">
+            <i class="fa-solid fa-paper-plane"></i> Submit
+        </button>
+
     </form>
 
     <p id="msg"></p>
