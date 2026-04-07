@@ -140,8 +140,10 @@
 document.getElementById("contactForm").addEventListener("submit", async function(e) {
     e.preventDefault();
 
-    const data = {
-        name: document.getElementById("name").value
+   const data = {
+    name: document.getElementById("name").value,
+    email: document.getElementById("email").value
+};
     };
 
     try {
