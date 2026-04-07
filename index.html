@@ -147,7 +147,7 @@ document.getElementById("contactForm").addEventListener("submit", async function
     };
 
     try {
-        const res = await fetch("https://emre4wve9h.execute-api.ap-south-1.amazonaws.com", {
+        const res = await fetch("https://emre4wve9h.execute-api.ap-south-1.amazonaws.com/submit", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
