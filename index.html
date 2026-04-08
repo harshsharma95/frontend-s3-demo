@@ -104,6 +104,7 @@
 
 <div class="container">
     <h2>Harsh Sharma</h2>
+
     <div class="tech-tag">
         <i class="fa-brands fa-jenkins"></i> DevOps | 
         <i class="fa-solid fa-cloud"></i> Cloud | 
@@ -140,10 +141,10 @@
 document.getElementById("contactForm").addEventListener("submit", async function(e) {
     e.preventDefault();
 
-   const data = {
-    name: document.getElementById("name").value,
-    email: document.getElementById("email").value
-};
+    const data = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        contact: document.getElementById("contact").value
     };
 
     try {
