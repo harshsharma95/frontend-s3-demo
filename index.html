@@ -159,6 +159,9 @@ document.getElementById("contactForm").addEventListener("submit", async function
         const result = await res.json();
         document.getElementById("msg").innerText = result.message;
 
+        // ✅ ONLY THIS LINE ADDED
+        document.getElementById("contactForm").reset();
+
     } catch (error) {
         document.getElementById("msg").innerText = "⚠️ Backend not connected yet!";
     }
