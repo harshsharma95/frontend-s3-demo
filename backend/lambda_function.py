@@ -7,23 +7,25 @@ BUCKET_NAME = "s3-deploy-static-website"
 
 def lambda_handler(event, context):
     try:
+        # Get data from API Gateway
         if 'body' in event:
             body = json.loads(event['body'])
         else:
             body = event
 
-        name = body.get('name')
-        email = body.get('email')
-        contact = body.get('contact')
+        name = body.get("name")
+        email = body.get("email")
+        contact = body.get("contact")
 
+        # Prepare data
         data = {
             "name": name,
             "email": email,
             "contact": contact,
-            "timestamp": str(datetime.now())
+            "time": str(datetime.now())
         }
 
-        # Unique file name
+        # File name in S3
         file_name = f"contacts/{name}_{datetime.now().timestamp()}.json"
 
         # Upload to S3
@@ -34,13 +36,19 @@ def lambda_handler(event, context):
             ContentType='application/json'
         )
 
+        # ✅ Only return clean message
         return {
             "statusCode": 200,
-            "body": json.dumps({"message": "Data stored successfully in S3 ✅"})
+            "body": json.dumps({
+                "message": "Thanks for submitting"
+            })
         }
 
     except Exception as e:
+        print("ERROR:", str(e))
         return {
             "statusCode": 500,
-            "body": json.dumps({"error": str(e)})
+            "body": json.dumps({
+                "message": "Error occurred"
+            })
         }
