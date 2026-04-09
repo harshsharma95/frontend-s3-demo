@@ -1,67 +1,46 @@
 import json
 import boto3
+from datetime import datetime
 
-ses = boto3.client('ses', region_name='ap-south-1')
+s3 = boto3.client('s3')
+BUCKET_NAME = "s3-deploy-static-website"
 
 def lambda_handler(event, context):
     try:
-        # Parse request
         if 'body' in event:
             body = json.loads(event['body'])
         else:
             body = event
 
-        name = body.get('name', 'User')
-        email = body.get('email', 'No Email')
-        contact = body.get('contact', 'No Contact')
+        name = body.get('name')
+        email = body.get('email')
+        contact = body.get('contact')
 
-        # 🔥 Email details
-        sender_email = "harshsharma952887@gmail.com"
-        receiver_email = "harshsharma952887@gmail.com"
+        data = {
+            "name": name,
+            "email": email,
+            "contact": contact,
+            "timestamp": str(datetime.now())
+        }
 
-        subject = "New Contact Form Submission"
+        # Unique file name
+        file_name = f"contacts/{name}_{datetime.now().timestamp()}.json"
 
-        message = f"""
-You received a new contact form submission:
-
-Name: {name}
-Email: {email}
-Contact: {contact}
-"""
-
-        # 🔥 Send Email via SES
-        ses.send_email(
-            Source=sender_email,
-            Destination={
-                'ToAddresses': [receiver_email]
-            },
-            Message={
-                'Subject': {
-                    'Data': subject
-                },
-                'Body': {
-                    'Text': {
-                        'Data': message
-                    }
-                }
-            }
+        # Upload to S3
+        s3.put_object(
+            Bucket=BUCKET_NAME,
+            Key=file_name,
+            Body=json.dumps(data),
+            ContentType='application/json'
         )
 
         return {
-            'statusCode': 200,
-            'headers': {
-                "Access-Control-Allow-Origin": "*"
-            },
-            'body': json.dumps({
-                'message': f"Thanks {name}, your details submitted successfully!"
-            })
+            "statusCode": 200,
+            "body": json.dumps({"message": "Data stored successfully in S3 ✅"})
         }
 
     except Exception as e:
         return {
-            'statusCode': 500,
-            'headers': {
-                "Access-Control-Allow-Origin": "*"
-            },
-            'body': json.dumps({'error': str(e)})
+            "statusCode": 500,
+            "body": json.dumps({"error": str(e)})
         }
